@@ -15,6 +15,7 @@ class LpModel:
         self.indexes = np.zeros((1, self.numVars))
         self.__makeIndexes(self.numVars)
         self.basicVariables = np.zeros((1,self.numConstraints))
+        self.hasArtificalVariable = False;
 
 
     def setColumn(self, colNum, values):
@@ -84,6 +85,7 @@ class LpModel:
             if ctype != 0:
                 self.ConstrTypeSlack.put(var,ctype)
                 var += 1
+
     def findSlackNum(self):
         self.slacksNeeded = 0
         for x in range(self.numConstraints):
@@ -184,9 +186,19 @@ class LpModel:
             self.slack2.put(i,self.slack.flatten()[i])
 
     def detectArtificial(self):
+        #   get the index of the row whose constrType is ">="
+        #   add column with artificial variable
+        #   set the haveArtificialVariable flag as true
+
     def createNewObjective(self):
-    def createPhaseTwo(self):
+        # add old objective function to the matrix
+        # create new objective function
+        # w = -(A1+A2) = the sum of entries on the left side in the row with artificial variables of the matrix - the sum of entries on the right side
+    def setupPhaseTwo(self):
+        # find basic matrix by searching through each column and find which column has only one 1 and others be zeros
+        # find base inverse, z and xb
     def setupPhaseOne(self):
+
 test = LpModel(4, 2)
 test.setColumn(1, [3, 4])
 test.setColumn(2, [5, 5])
